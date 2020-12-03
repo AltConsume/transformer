@@ -1,0 +1,26 @@
+{
+  "author": {
+    "additionalName": "user.screen_name",
+    "givenName": "user.name",
+    "homeLocation": "user.location",
+    "url": "user.url",
+    "image": "user.profile_image_url"
+  },
+  "backstory": {
+    "author": {
+      "additionalName": "retweeted_status.user.screen_name",
+      "givenName": "retweeted_status.user.name",
+      "homeLocation": "retweeted_status.user.location",
+      "url": "retweeted_status.user.url",
+      "image": "retweeted_status.user.profile_image_url"
+    },
+    "dateCreated": "<Date>retweeted_status.created_at",
+    "image": "retweeted_status.extended_entities.media[].media_url",
+    "video": "retweeted_status.extended_entities.media[].video_info.variants",
+    "text": "retweeted_status.text"
+  },
+  "dateCreated": "<Date>created_at",
+  "image": "entities.urls[0]",
+  "text": "text",
+  "license":"<Static>Twitter"
+}
