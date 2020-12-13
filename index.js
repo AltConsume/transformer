@@ -49,7 +49,8 @@ const getNestedValues = (value, path) => {
     [parent, ...rest] = path
   }
 
-  // If level is described as an array
+  // If level is described as an array, we want to return an array
+  // of nested values
   if (parent.endsWith(`[]`)) {
     parent = parent.slice(0, -2)
 
@@ -58,13 +59,25 @@ const getNestedValues = (value, path) => {
     })
   }
 
+  // Allow for index
+  if (parent.includes(`[`)) {
+    parent = parent.replace(`[`, ``).replace(`]`, ``)
+  }
+
   // If we are at the final step
   if (rest.length === 0) {
+    // If we are at the end but the value is an array, we
+    // need to extract the final value from the key in the array
+    // (or at least that is the assumption)
     if (Array.isArray(value)) {
       return value.map((object) => object[parent])
     }
 
     return value[parent]
+  }
+
+  if (!value[parent]) {
+    return null
   }
 
   // If there is an intermediary step that is not an array

@@ -1,4 +1,7 @@
 {
+  "about": {
+    "identifier": "id_str"
+  },
   "author": {
     "additionalName": "user.screen_name",
     "givenName": "user.name",
