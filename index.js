@@ -1,8 +1,13 @@
+const { resolve } = require(`path`)
 const debug = require(`debug`)(`amos:transformer:index`)
 const dayjs = require(`dayjs`)
 const maps = require(`./maps`)
 
-module.exports = (content, platform) => {
+// TODO Make index.js that loads these into object
+const TwitterMessage = require(`./js-proto/twitter`)
+const YouTubeMessage = require(`./js-proto/twitter`)
+
+const parse = (content, platform) => {
   const map = maps[platform]
 
   debug(`transforming ${platform} content`)
@@ -13,11 +18,29 @@ module.exports = (content, platform) => {
 
   if (Array.isArray(content)) {
     debug(`content is array`)
-    return content.map(transform)
+    return content.map(_parse)
   } else {
     debug(`content is object`)
-    return transform(map, content)
+    return _parse(map, content)
   }
+}
+
+const transform = (content, platform) => {
+  let message
+
+  switch(platform.toLowerCase()) {
+    case `youtube`:
+      message = YouTubeMessage(content)
+      break
+    case `twitter`:
+      message = TwitterMessage(content)
+      break
+    default:
+      debug(`could not find proto message for ${platform}`)
+      break
+  }
+
+  return message
 }
 
 const getType = (path) => {
@@ -83,7 +106,7 @@ const getNestedValues = (value, path) => {
   // If there is an intermediary step that is not an array
   return getNestedValues(value[parent], rest)
 }
-const transform = (map, content, output = {}) => {
+const _parse = (map, content, output = {}) => {
   debug(`attempting transformation`)
 
   const outputMap = Object.keys(map).forEach((key) => {
@@ -94,7 +117,7 @@ const transform = (map, content, output = {}) => {
     if (typeof mapPath !== 'string') {
       debug(`mapPath for ${key} is object`)
 
-      output[key] = transform(mapPath, content, {})
+      output[key] = _parse(mapPath, content, {})
 
       return
     }
@@ -127,4 +150,9 @@ const transform = (map, content, output = {}) => {
   })
 
   return output
+}
+
+module.exports = {
+  parse,
+  transform,
 }

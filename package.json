@@ -1,12 +1,13 @@
 {
-  "name": "@takeamos/transformer",
+  "name": "@takeamos/models",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "protoc -I protos/ --js_out=js-proto protos/*"
   },
-  "author": "Madeline Cameron <madeline@qnzl.co>",
+  "author": "Madeline <maddie@qnzl.co>",
   "license": "MIT",
   "dependencies": {
     "dayjs": "^1.9.6",

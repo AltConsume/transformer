@@ -1,6 +1,6 @@
 {
   "about": {
-    "identifier": "id_str"
+    "identifier": "id"
   },
   "author": {
     "additionalName": "user.screen_name",
@@ -17,6 +17,7 @@
       "url": "retweeted_status.user.url",
       "image": "retweeted_status.user.profile_image_url"
     },
+    "identifier": "retweeted_status.id_str",
     "dateCreated": "<Date>retweeted_status.created_at",
     "image": "retweeted_status.extended_entities.media[].media_url",
     "video": "retweeted_status.extended_entities.media[].video_info.variants",

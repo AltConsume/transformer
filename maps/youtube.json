@@ -1,0 +1,14 @@
+{
+  "about": {
+    "identifier": "id",
+    "description": "description",
+    "name": "title"
+  },
+  "author": {
+    "identifier": "channelId",
+    "name": "channelTitle"
+  },
+  "dateCreated": "<Date>publishedAt",
+  "image": "thumbnails.default.url",
+  "license":"<Static>YouTube"
+}
