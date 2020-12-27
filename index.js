@@ -2,7 +2,7 @@ const debug = require(`debug`)(`amos:transformer:index`)
 const dayjs = require(`dayjs`)
 const maps = require(`./maps`)
 
-module.exports = (content, platform) => {
+const parse = (content, platform) => {
   const map = maps[platform]
 
   debug(`transforming ${platform} content`)
@@ -83,7 +83,8 @@ const getNestedValues = (value, path) => {
   // If there is an intermediary step that is not an array
   return getNestedValues(value[parent], rest)
 }
-const transform = (map, content, output = {}) => {
+
+const _parse = (map, content, output = {}) => {
   debug(`attempting transformation`)
 
   const outputMap = Object.keys(map).forEach((key) => {
@@ -127,4 +128,8 @@ const transform = (map, content, output = {}) => {
   })
 
   return output
+}
+
+module.exports = {
+  parse,
 }
