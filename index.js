@@ -1,11 +1,7 @@
 const { resolve } = require(`path`)
-const debug = require(`debug`)(`amos:transformer:index`)
+const debug = require(`debug`)(`amos:models:index`)
 const dayjs = require(`dayjs`)
 const maps = require(`./maps`)
-
-// TODO Make index.js that loads these into object
-const TwitterMessage = require(`./js-proto/twitter`)
-const YouTubeMessage = require(`./js-proto/twitter`)
 
 const parse = (content, platform) => {
   const map = maps[platform]
@@ -23,24 +19,6 @@ const parse = (content, platform) => {
     debug(`content is object`)
     return _parse(map, content)
   }
-}
-
-const transform = (content, platform) => {
-  let message
-
-  switch(platform.toLowerCase()) {
-    case `youtube`:
-      message = YouTubeMessage(content)
-      break
-    case `twitter`:
-      message = TwitterMessage(content)
-      break
-    default:
-      debug(`could not find proto message for ${platform}`)
-      break
-  }
-
-  return message
 }
 
 const getType = (path) => {
@@ -154,5 +132,4 @@ const _parse = (map, content, output = {}) => {
 
 module.exports = {
   parse,
-  transform,
 }
